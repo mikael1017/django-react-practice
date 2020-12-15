@@ -25,6 +25,15 @@ export default class CreateRoomPage extends Component {
     this.handleGuestCanPauseChange = this.handleGuestCanPauseChange.bind(this);
   }
 
+  handleUpdate() {
+    if (this.update) {
+      var title = document.getElementById("title_text_field");
+      var buttonTitle = document.getElementById("button_text_field");
+      title.innerText = "Update A Room";
+      buttonTitle.innerText = "Update A Room"
+    }
+  }
+
   handleVotesChange(e) {
     this.setState({
       votesToSkip: e.target.value,
@@ -55,7 +64,7 @@ export default class CreateRoomPage extends Component {
     return (
       <Grid container spacing={1}>
         <Grid item xs={12} align="center">
-          <Typography component="h4" variant="h4">
+          <Typography id="title_text_field" component="h4" variant="h4">
             Create A Room
           </Typography>
         </Grid>
@@ -103,6 +112,7 @@ export default class CreateRoomPage extends Component {
         </Grid>
         <Grid item xs={12} align="center">
           <Button
+            id = "button_text_field"
             color="primary"
             variant="contained"
             onClick={this.handleRoomButtonPressed}

@@ -11,6 +11,8 @@ export default class Room extends Component {
             guestCanPause: false,
             isHost: false,
             showSettings: false,
+            play: false,
+            pause: true,
         };
         this.roomCode = this.props.match.params.roomCode;
         this.getRoomDetails();
@@ -18,6 +20,9 @@ export default class Room extends Component {
         this.updateShowSettings = this.updateShowSettings.bind(this);
         this.renderSettings = this.renderSettings.bind(this);
         this.renderSettingsButton = this.renderSettingsButton.bind(this);
+        this.playButtonPressed = this.playButtonPressed.bind(this);
+        this.url = "/Users/jaewoocho/Documents/GitHub/django-react-practice/web app/music_controller/music/music1.wav";
+        this.audio = new Audio(this.url);
     }
 
     leaveButtonPressed() {
@@ -29,6 +34,14 @@ export default class Room extends Component {
                 this.props.history.push('/');
                 this.props.leaveRoomCallback();
             });
+    }
+
+    playButtonPressed() {
+        this.setState({
+            play: true,
+            pause: false
+        })
+        this.audio.play();
     }
 
     updateShowSettings(value) {
@@ -47,7 +60,8 @@ export default class Room extends Component {
                     guestCanPause = {this.state.guestCanPause}
                     roomCode = {this.state.roomCode}
                     updateCallback = {() => {}}
-                />
+                >
+                </CreateRoomPage>
                 </Grid>
                 <Grid item xs = {12} align = "center">
                     <Button
@@ -99,6 +113,15 @@ export default class Room extends Component {
         }
         return (
             <Grid container spacing = {1}>
+                <Grid item xs = {12} align = "center">
+                    <Button
+                        variant = "contained"
+                        color = "primary"
+                        onClick = {}
+                    >
+                        Play a Song
+                    </Button>
+                </Grid>
                 <Grid item xs = {12} align = "center">
                     <Typography variant = "h4" component = "h4">
                         Code: {this.roomCode}
