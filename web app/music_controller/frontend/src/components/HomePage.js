@@ -57,20 +57,24 @@ export default class HomePage extends Component {
         return (
             <Router>
                 <Switch>
-                    <Route exact path = '/' render = {() => {
-                        return this.state.roomCode ? (
-                            <Redirect to = {`/room/${this.state.roomCode}`} />
-                        ) : (
-                            this.renderHomePage()
-                        );
-                    }}
+                    <Route
+                        exact
+                        path = '/'
+                        render = {() => {
+                            return this.state.roomCode ? (
+                                <Redirect to = {`/room/${this.state.roomCode}`} />
+                            ) : (
+                                this.renderHomePage()
+                            );
+                        }}
                     />
                     <Route path = '/join' component = {RoomJoinPage} />
                     <Route path = '/create' component = {CreateRoomPage} />
-                    <Route path = '/room/:roomCode'
-                    render = {(props) => {
-                        return <Room {...props} leaveRoomCallback = {this.clearRoomCode} />;
-                    }}
+                    <Route
+                        path = '/room/:roomCode'
+                        render = {(props) => {
+                            return <Room {...props} leaveRoomCallback = {this.clearRoomCode} />;
+                        }}
                     />
                 </Switch>
             </Router>
