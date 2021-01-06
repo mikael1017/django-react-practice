@@ -55,6 +55,7 @@ class IsAuthenticated(APIView):
             self.request.session.session_key)
         return Response({'status': is_authenticated}, status=status.HTTP_200_OK)
 
+
 class CurrentSong(APIView):
     def get(self, request, format=None):
         room_code = self.request.session.get('room_code')
@@ -68,7 +69,7 @@ class CurrentSong(APIView):
         response = execute_spotify_api_request(host, endpoint)
 
         if 'error' in response or 'item' not in response:
-            return Response({}, status=status.HTTP_204_NO_CONTENT)
+            return Response({"hello"}, status=status.HTTP_204_NO_CONTENT)
 
         item = response.get('item')
         duration = item.get('duration_ms')
@@ -95,5 +96,5 @@ class CurrentSong(APIView):
             'votes': 0,
             'id': song_id
         }
-        return Response(song, status=status.HTTP_200_OK)
 
+        return Response(song, status=status.HTTP_200_OK)
