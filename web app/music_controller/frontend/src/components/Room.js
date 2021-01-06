@@ -10,6 +10,7 @@ export default class Room extends Component {
       guestCanPause: false,
       isHost: false,
       showSettings: false,
+      song: {}
     };
     this.roomCode = this.props.match.params.roomCode;
     this.leaveButtonPressed = this.leaveButtonPressed.bind(this);
@@ -19,6 +20,7 @@ export default class Room extends Component {
     this.getRoomDetails = this.getRoomDetails.bind(this);
     this.authenticateSpotify = this.authenticateSpotify.bind(this);
     this.getRoomDetails();
+    this.getCurrentSong();
   }
 
   getRoomDetails() {
@@ -56,6 +58,15 @@ export default class Room extends Component {
     });
   }
 
+  getCurrentSong() {
+    fetch('/spotify/current-song').then((response) => {
+      if (!response.ok) {
+        return {}
+      } else {
+        return response.json();
+      }
+    }).then((data) => this.setState({song: data}))
+  }
   leaveButtonPressed() {
     const requestOptions = {
       method: "POST",
@@ -123,21 +134,7 @@ export default class Room extends Component {
             Code: {this.roomCode}
           </Typography>
         </Grid>
-        <Grid item xs={12} align="center">
-          <Typography variant="h6" component="h6">
-            Votes: {this.state.votesToSkip}
-          </Typography>
-        </Grid>
-        <Grid item xs={12} align="center">
-          <Typography variant="h6" component="h6">
-            Guest Can Pause: {this.state.guestCanPause.toString()}
-          </Typography>
-        </Grid>
-        <Grid item xs={12} align="center">
-          <Typography variant="h6" component="h6">
-            Host: {this.state.isHost.toString()}
-          </Typography>
-        </Grid>
+        {this.state.song}
         {this.state.isHost ? this.renderSettingsButton() : null}
         <Grid item xs={12} align="center">
           <Button
