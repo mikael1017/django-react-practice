@@ -150,19 +150,19 @@ export default class Room extends Component {
       <Grid container spacing={1}>
         {this.state.isHost ? (
           <Grid item xs={12} align="center">
-            <Typography variant="h4" component="h4">
+            <Typography className="text" variant="h3" component="h3">
               You're a Host! You have a control to skip a song
             </Typography>
           </Grid>
         ) : (
           <Grid item xs={12} align="center">
-            <Typography variant="h4" component="h4">
+            <Typography className="text" variant="h3" component="h3">
               You're a Guest! You need a necessary # of votes to skip a song
             </Typography>
           </Grid>
         )}
         <Grid item xs={12} align="center">
-          <Typography variant="h4" component="h4">
+          <Typography className="text" variant="h4" component="h4">
             Code: {this.roomCode}
           </Typography>
         </Grid>

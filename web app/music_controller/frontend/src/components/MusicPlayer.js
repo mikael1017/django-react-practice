@@ -10,6 +10,7 @@ import PlayArrowIcon from "@material-ui/icons/PlayArrow";
 import PauseIcon from "@material-ui/icons/Pause";
 import SkipNextIcon from "@material-ui/icons/SkipNext";
 import SkipPrevIcon from "@material-ui/icons/SkipPrevious";
+import ShuffleIcon from "@material-ui/icons/Shuffle";
 
 export default class MusicPlayer extends Component {
   constructor(props) {
@@ -47,6 +48,14 @@ export default class MusicPlayer extends Component {
     fetch("/spotify/play", requestOptions);
   }
 
+  shuffleSong() {
+    const requestOptions = {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+    };
+    fetch("/spotify/shuffle", requestOptions);
+  }
+
   render() {
     const songProgress = (this.props.time / this.props.duration) * 100;
     return (
@@ -54,6 +63,9 @@ export default class MusicPlayer extends Component {
         <Grid container alignItems="center">
           <Grid item align="center" xs={4}>
             <img src={this.props.image_url} height="100%" width="100%" />
+            <IconButton onClick={() => this.shuffleSong()}>
+              <ShuffleIcon />
+            </IconButton>
           </Grid>
           <Grid item align="center" xs={8}>
             <Typography component="h5" variant="h5">
